@@ -30,7 +30,7 @@ const UsuarioSchema = new Schema({
     type: Boolean,
     default: false
   }
-})
+},{strict:true})
 
 console.log(UsuarioSchema.methods)
 //envia todos los datos menos la contraseña
