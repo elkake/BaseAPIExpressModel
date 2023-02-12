@@ -7,7 +7,7 @@ import mongoose from 'mongoose'
 // const dirURL = dirname(fileURLToPath(import.meta.url))
 
 dotenv.config()
-// mongoose.set('strictQuery', true)
+mongoose.set('strictQuery', false)
 const server = new Server()
 
 server.listen()
