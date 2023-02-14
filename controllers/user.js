@@ -50,13 +50,17 @@ export const usuariosPost = async (req = request, res = response) => {
 
 export const usuariosDelete = async (req = request, res = response) => {
   const { id } = req.params
+
+  const usuario = req.usuario
   // borrar fisicamente
   // const usuarioDelete = await Usuario.findByIdAndDelete(id)
 
   // recomendado ocultar el usuario en vez de borrarlo, en caso tenga datos importantes
 
-  const usuarioUpdate = await Usuario.findByIdAndUpdate(id, { estado: false })
-  res.json(usuarioUpdate)
+ 
+    const usuarioUpdate = await Usuario.findByIdAndUpdate(id, { estado: false })
+     
+  res.json({usuarioUpdate,usuario})
 }
 
 export const usuariosPatch = (req = request, res = response) => {

@@ -7,8 +7,11 @@ import {
   usuariosPost,
   usuariosPut
 } from '../controllers/user.js'
-import validar from '../middlewares/validar-campos.js'
+// import validar from '../middlewares/validar-campos.js'
 import { esRolValido, emailExiste, idExiste } from '../helpers/db-validators.js'
+// import { validarJWT } from '../middlewares/validar-jwt.js'
+// import { tieneRole, validarRol } from '../middlewares/validar-roles.js'
+import obj from '../middlewares/index.js'
 
 const router = Router()
 
@@ -21,7 +24,7 @@ router.put(
     check('id').custom(idExiste),
     check('rol').custom(esRolValido),
 
-    validar
+    obj.validar
   ],
   usuariosPut
 )
@@ -37,7 +40,7 @@ router.post(
     check('correo').custom(emailExiste),
     // check('rol','No es un rol válido').isIn(['ADMIN_ROLE','USER_ROLE']),
     check('rol').custom(esRolValido),
-    validar
+    obj.validar
   ],
   usuariosPost
 )
@@ -45,9 +48,12 @@ router.post(
 router.delete(
   '/:id',
   [
+    obj.validarJWT,
+    obj.validarRol,
+    // tieneRole('ADMIN_ROLE','USER_ROLE'),
     check('id', 'No es un ID valido').isMongoId(),
     check('id').custom(idExiste),
-    validar
+    obj.validar
   ],
   usuariosDelete
 )

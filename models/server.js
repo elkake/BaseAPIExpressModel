@@ -2,13 +2,14 @@ import express from 'express'
 import cors from 'cors'
 import router from '../routes/user.routes.js'
 import dbConnection from '../database/config.db.js'
-
+import routerAuth from '../routes/auth.routes.js'
 class Server {
   constructor() {
     this.app = express()
     this.port = process.env.PORT || 3000
     // Define ruta de mis usuarios
     this.usuariosPath = '/api/usuarios'
+    this.authPath = '/api/auth'
     // Conectar a base de datos
     this.conectarDB()
     // Middlewares
@@ -17,7 +18,7 @@ class Server {
     this.routes()
   }
 
-  async conectarDB(){
+  async conectarDB() {
     await dbConnection()
   }
 
@@ -30,6 +31,7 @@ class Server {
 
   routes() {
     //en esta middleware se define  la ruta y en que carpeta estan
+    this.app.use(this.authPath, routerAuth)
     this.app.use(this.usuariosPath, router)
   }
 

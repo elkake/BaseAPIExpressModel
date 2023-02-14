@@ -32,10 +32,10 @@ const UsuarioSchema = new Schema({
   }
 })
 
-console.log(UsuarioSchema.methods)
-//envia todos los datos menos la contraseña
+//modifica el formato de datos cuando se convierte en un objeto JSON y es enviado al cliente
 UsuarioSchema.methods.toJSON = function () {
-  const { __v, password, ...usuario } = this.toObject()
+  const { __v, password, _id, ...usuario } = this.toObject()
+  usuario.id = _id
   return usuario
 }
 
